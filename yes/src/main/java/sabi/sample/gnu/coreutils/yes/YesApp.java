@@ -6,10 +6,9 @@ import sabi.Err;
 public class YesApp {
 
   public static void main(String ...args) throws Err {
-    var dax = new YesAppDax();
-    dax.addLocalDaxSrc("cli-args", new ArgDaxSrc(args));
-    new YesLogic().execute(dax);
+    DaxBase.addGlobalDaxSrc("cli-args", new ArgDaxSrc(args));
+    new YesLogic().execute(new AppDax());
   }
 
-  static class YesAppDax extends DaxBase implements ArgDax, ConsoleDax {}
+  static class AppDax extends DaxBase implements ArgDax, ConsoleDax {}
 }
