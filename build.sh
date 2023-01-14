@@ -52,47 +52,50 @@ native_test() {
   end $?
 }
 
-for a in "$@"; do
-  case "$a" in
-  clean)
-    clean
-    ;;
-  compile)
-    compile
-    ;;
-  test)
-    test
-    ;;
-  jar)
-    jar
-    ;;
-  javadoc)
-    javadoc
-    ;;
-  deps)
-    deps
-    ;;
-  sver)
-    sver
-    ;;
-  native)
-    case "$2" in
-    test)
-      native_test
+if [ "$#" == "0" ]; then
+  clean
+  jar
+  javadoc
+  native_compile
+  native_test
+else
+  for a in "$@"; do
+    case "$a" in
+    clean)
+      clean
       ;;
-    compile | '')
-      native_compile
+    compile)
+      compile
+      ;;
+    test)
+      test
+      ;;
+    jar)
+      jar
+      ;;
+    javadoc)
+      javadoc
+      ;;
+    deps)
+      deps
+      ;;
+    sver)
+      sver
+      ;;
+    native)
+      case "$2" in
+      test)
+        native_test
+        ;;
+      compile | '')
+        native_compile
+        ;;
+      esac
+      ;;
+    *)
+      echo "Bad task: $a"
+      exit 1
       ;;
     esac
-    ;;
-  '')
-    clean
-    jar
-    javadoc
-    ;;
-  *)
-    echo "Bad task: $a"
-    exit 1
-    ;;
-  esac
-done
+  done
+fi
