@@ -1,0 +1,39 @@
+name: Java CI
+
+on:
+  push:
+    branches: [ '*', '*/*' ]
+
+jobs:
+
+  build:
+    name: Build for GraalVM 22.3 (OpenJDK ${{ matrix.javaver }}) on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        javaver: [17, 19]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up GraalVM
+      uses: graalvm/setup-graalvm@v1
+      with:
+        version: '22.3.0'
+        java-version: ${{ matrix.javaver }}
+        components: 'native-image'
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        native-image-job-reports: 'true'
+
+    - name: Download local repository
+      run: |-
+        pushd ..
+        git clone --depth 1 https://github.com/sttk-java/local-m2-repository.git
+        popd
+
+    - name: Build and test
+      run: mvn package
+
+    - name: Native test
+      run: mvn -Pnative test
