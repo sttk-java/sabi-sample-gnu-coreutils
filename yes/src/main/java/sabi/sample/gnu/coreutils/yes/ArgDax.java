@@ -3,23 +3,20 @@ package sabi.sample.gnu.coreutils.yes;
 import sabi.Dax;
 import sabi.Err;
 import sabi.sample.gnu.coreutils.yes.YesDax.Mode;
+import sabi.sample.gnu.coreutils.lib.CliDax;
 
-public interface ArgDax extends Dax, YesDax {
-
-  default ArgDaxConn getArgDaxConn() throws Err {
-    return ArgDaxConn.class.cast(getDaxConn("cli-args"));
-  }
+public interface ArgDax extends CliDax, YesDax {
 
   @Override
   default Mode getMode() throws Err {
-    var conn = getArgDaxConn();
-    var args = conn.getArgs();
+    var conn = getCliDaxConn("cli");
+    var argv = conn.getArgv();
 
-    switch (args.length) {
+    switch (argv.length) {
     case 0:
       return Mode.NoWord;
     case 1:
-      switch (args[0]) {
+      switch (argv[0]) {
       case "--help":
         return Mode.Help;
       case "--version":
@@ -34,9 +31,9 @@ public interface ArgDax extends Dax, YesDax {
 
   @Override
   default String getWord() throws Err {
-    var conn = getArgDaxConn();
-    var args = conn.getArgs();
-    return args[0];
+    var conn = getCliDaxConn("cli");
+    var argv = conn.getArgv();
+    return argv[0];
   }
 }
 
