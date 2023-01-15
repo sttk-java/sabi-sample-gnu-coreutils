@@ -11,3 +11,6 @@ target/
 # OS generating files
 .DS_Store
 Thumbs.db
+
+# Native test
+test-results-native/
