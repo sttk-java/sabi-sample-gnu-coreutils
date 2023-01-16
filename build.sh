@@ -43,12 +43,20 @@ sver() {
 }
 
 native_compile() {
-  mvn -Pnative package
+  #mvn -Pnative package
+  echo ""
+  echo ""
+  echo "***************************************"
+  echo "native build with JNA is not supported!"
+  echo "***************************************"
+  echo ""
+  echo ""
   end $?
 }
 
 native_test() {
   mvn -Pnative test
+  #mvn -Pnative -Dagent test
   end $?
 }
 

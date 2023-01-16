@@ -5,7 +5,7 @@ import sabi.Err;
 
 public interface CliDax extends Dax {
 
-  default CliDaxConn getCliDaxConn(String name) throws Err {
+  default CliDaxConn getCliDaxConn(final String name) throws Err {
     return CliDaxConn.class.cast(getDaxConn(name));
   }
 }

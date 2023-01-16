@@ -8,7 +8,7 @@ public class CliDaxSrc implements DaxSrc {
 
   protected final String[] argv;
 
-  public CliDaxSrc(String[] argv) {
+  public CliDaxSrc(final String[] argv) {
     this.argv = argv;
   }
 

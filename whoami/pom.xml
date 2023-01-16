@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>sttk-java</groupId>
-  <artifactId>lib</artifactId>
+  <artifactId>whoami</artifactId>
   <version>0.1.0</version>
   <packaging>jar</packaging>
 
@@ -26,6 +26,11 @@
     <dependency>
       <groupId>sttk-java</groupId>
       <artifactId>sabi</artifactId>
+      <version>0.1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>sttk-java</groupId>
+      <artifactId>lib</artifactId>
       <version>0.1.0</version>
     </dependency>
     <dependency>
@@ -113,10 +118,75 @@
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.4.1</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <transformers>
+            <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+              <mainClass>sabi.sample.gnu.coreutils.whoami.WhoamiApp</mainClass>
+            </transformer>
+          </transformers>
+          <createDependencyReducedPom>false</createDependencyReducedPom>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.0.0-M7</version>
       </plugin>
     </plugins>
   </build>
 
+  <profiles>
+    <profile>
+      <id>native</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.graalvm.buildtools</groupId>
+            <artifactId>native-maven-plugin</artifactId>
+            <version>0.9.19</version>
+            <extensions>true</extensions>
+            <executions>
+              <execution>
+                <id>build-native</id>
+                <goals>
+                  <goal>build</goal>
+                </goals>
+                <phase>package</phase>
+              </execution>
+              <execution>
+                <id>test-native</id>
+                <goals>
+                  <goal>test</goal>
+                </goals>
+                <phase>test</phase>
+                <configuration>
+                  <dependencies>
+                    <dependency>
+                      <groupId>org.junit.platform</groupId>
+                      <artifactId>junit-platform-launcher</artifactId>
+                      <version>1.9.1</version>
+                      <scope>test</scope>
+                    </dependency>
+                  </dependencies>
+                </configuration>
+              </execution>
+            </executions>
+            <configuration>
+              <fallback>false</fallback>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
