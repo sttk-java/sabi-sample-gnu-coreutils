@@ -13,4 +13,11 @@
     <module>lib</module>
     <module>yes</module>
   </modules>
+
+  <!-- Skip tests and javadoc of the root project -->
+  <properties>
+    <maven.test.skip>true</maven.test.skip>
+    <maven.javadoc.skip>true</maven.javadoc.skip>
+  </properties>
+
 </project>
