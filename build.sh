@@ -33,16 +33,16 @@ javadoc() {
 }
 
 deps() {
-  mvn versions:deplay-dependency-updates
+  mvn versions:display-dependency-updates
   end $?
 }
 
-sver() {
-  serialver -classpath target/classes $1
-  end $?
-}
+#sver() {
+#  serialver -classpath target/classes $1
+#  end $?
+#}
 
-native_compile() {
+native_package() {
   mvn -Pnative package
   end $?
 }
@@ -79,18 +79,11 @@ else
     deps)
       deps
       ;;
-    sver)
-      sver
+    native_test)
+      native_test
       ;;
-    native)
-      case "$2" in
-      test)
-        native_test
-        ;;
-      compile | '')
-        native_compile
-        ;;
-      esac
+    native_package)
+      native_package
       ;;
     *)
       echo "Bad task: $a"
