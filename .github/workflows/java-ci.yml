@@ -7,13 +7,12 @@ on:
 jobs:
 
   build:
-    name: Build for GraalVM 22.3 (OpenJDK ${{ matrix.javaver }}) on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
+    name: Build for GraalVM 22.3 (OpenJDK ${{ matrix.javaver }})
+    runs-on: macos-latest
     strategy:
       fail-fast: false
       matrix:
         javaver: [17, 19]
-        os: [ubuntu-latest, windows-latest, macos-latest]
     steps:
     - uses: actions/checkout@v2
 
