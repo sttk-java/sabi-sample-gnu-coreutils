@@ -18,7 +18,7 @@
   <repositories>
     <repository>
       <id>local-m2-repository</id>
-      <url>file://${user.dir}/../local-m2-repository</url>
+      <url>file://${project.basedir}/../../local-m2-repository</url>
     </repository>
   </repositories>
 
