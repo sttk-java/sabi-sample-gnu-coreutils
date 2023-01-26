@@ -56,8 +56,7 @@ if [ "$#" == "0" ]; then
   clean
   jar
   javadoc
-  native_compile
-  native_test
+  native_package
 else
   for a in "$@"; do
     case "$a" in

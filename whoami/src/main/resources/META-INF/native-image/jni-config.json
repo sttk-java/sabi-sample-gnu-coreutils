@@ -1,0 +1,14 @@
+[
+{
+  "name":"sabi.sample.gnu.coreutils.lib.Passwd",
+  "fields":[
+    {"name":"dir"}, 
+    {"name":"gecos"}, 
+    {"name":"gid"}, 
+    {"name":"name"}, 
+    {"name":"passwd"}, 
+    {"name":"shell"}, 
+    {"name":"uid"}
+  ]
+}
+]
