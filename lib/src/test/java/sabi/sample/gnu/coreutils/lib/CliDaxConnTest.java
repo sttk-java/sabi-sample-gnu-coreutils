@@ -40,4 +40,14 @@ public class CliDaxConnTest {
     var conn = CliDaxConn.class.cast(ds.createDaxConn());
     conn.close();
   }
+
+  @Test
+  void should_get_arguments() throws Err {
+    var ds = new CliDaxSrc(new String[] { "abc", "def" });
+    var conn = CliDaxConn.class.cast(ds.createDaxConn());
+    var argv = conn.getArgv();
+    assertThat(argv.length).isEqualTo(2);
+    assertThat(argv[0]).isEqualTo("abc");
+    assertThat(argv[1]).isEqualTo("def");
+  }
 }
