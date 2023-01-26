@@ -13,6 +13,7 @@
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <arch_os>x86_64-MacOSX</arch_os>
   </properties>
 
   <repositories>
@@ -98,6 +99,7 @@
           <compilerArgs>
             <arg>-g</arg>
             <arg>-Xlint</arg>
+            <arg>-h</arg><arg>${project.basedir}/src/main/c</arg>
           </compilerArgs>
         </configuration>
       </plugin>
@@ -105,6 +107,44 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.0.0-M7</version>
+        <configuration>
+          <argLine>-Djava.library.path=${project.build.directory}/nar/lib-${project.version}-${arch_os}-jni/lib/${arch_os}/jni</argLine>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.github.maven-nar</groupId>
+        <artifactId>nar-maven-plugin</artifactId>
+        <version>3.10.1</version>
+        <extensions>true</extensions>
+        <executions>
+          <execution>
+            <phase>compile</phase>
+            <goals>
+              <goal>nar-compile</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <output>core</output>
+          <aol>${arch_os}</aol>
+          <libraries>
+            <library>
+              <type>jni</type>
+            </library>
+          </libraries>
+          <c>
+            <name>gcc</name>
+            <includes>
+              <include>**/*.c</include>
+            </includes>
+            <options>
+              <option>-I${JAVA_HOME}/include</option>
+              <option>-I${JAVA_HOME}/include/darwin</option>
+              <option>-dynamiclib</option>
+              <option>-shared</option>
+            </options>
+          </c>
+        </configuration>
       </plugin>
     </plugins>
   </build>
