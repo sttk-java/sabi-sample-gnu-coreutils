@@ -11,6 +11,7 @@
 
   <modules>
     <module>lib</module>
+    <module>whoami</module>
     <module>yes</module>
   </modules>
 
