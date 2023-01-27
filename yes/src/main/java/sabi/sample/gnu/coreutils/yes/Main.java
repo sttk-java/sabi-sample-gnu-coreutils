@@ -6,12 +6,13 @@ import sabi.Err;
 
 import sabi.sample.gnu.coreutils.lib.CliDaxSrc;
 
-public class YesApp {
+public class Main {
 
   public static void main(String ...args) throws Err {
     DaxBase.addGlobalDaxSrc("cli", new CliDaxSrc(args));
-    new Proc<YesDax>(new AppDax()).runTxn(new YesLogic());
+    var proc = new Proc<YesDax>(new MainDax());
+    proc.runTxn(new YesLogic());
   }
 
-  static class AppDax extends DaxBase implements ArgDax, ConsoleDax {}
+  static class MainDax extends DaxBase implements ArgDax, ConsoleDax {}
 }

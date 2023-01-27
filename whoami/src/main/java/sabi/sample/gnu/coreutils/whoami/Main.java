@@ -7,15 +7,15 @@ import sabi.Err;
 import sabi.sample.gnu.coreutils.lib.CliDaxSrc;
 import sabi.sample.gnu.coreutils.lib.OsDaxSrc;
 
-public class WhoamiApp {
+public class Main {
 
   public static void main(final String ...args) throws Err {
     DaxBase.addGlobalDaxSrc("cli", new CliDaxSrc(args));
     DaxBase.addGlobalDaxSrc("os", new OsDaxSrc());
-    var proc = new Proc<WhoamiDax>(new AppDax());
+    var proc = new Proc<WhoamiDax>(new MainDax());
     proc.runTxn(new WhoamiLogic());
   }
 
-  static class AppDax extends DaxBase
+  static class MainDax extends DaxBase
     implements ArgDax, OsUserDax, ConsoleDax {}
 }
