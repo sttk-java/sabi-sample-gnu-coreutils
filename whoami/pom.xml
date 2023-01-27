@@ -134,7 +134,7 @@
         <configuration>
           <transformers>
             <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-              <mainClass>sabi.sample.gnu.coreutils.whoami.WhoamiApp</mainClass>
+              <mainClass>sabi.sample.gnu.coreutils.whoami.Main</mainClass>
             </transformer>
           </transformers>
           <createDependencyReducedPom>false</createDependencyReducedPom>
