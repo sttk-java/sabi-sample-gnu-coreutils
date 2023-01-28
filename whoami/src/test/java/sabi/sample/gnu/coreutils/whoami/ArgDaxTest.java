@@ -15,7 +15,7 @@ public class ArgDaxTest {
   class TestDax extends DaxBase implements ArgDax {}
 
   @Test
-  void should_get_mode_Version_when_no_arg() throws Err {
+  void should_get_mode_Normal_when_no_arg() throws Err {
     var argv = new String[0];
     var ds = new CliDaxSrc(argv);
 
