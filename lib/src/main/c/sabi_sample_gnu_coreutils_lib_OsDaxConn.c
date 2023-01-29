@@ -78,3 +78,27 @@ END:
 
   return eno;
 }
+
+JNIEXPORT jint JNICALL Java_sabi_sample_gnu_coreutils_lib_OsDaxConn_ttyname
+  (JNIEnv *env, jobject me, jint jfd, jobject jtxt)
+{
+  int eno;
+  size_t bufsize = 512;
+  char buf[512];
+
+  jclass jtxtCls;
+
+  jtxtCls = (*env)->GetObjectClass(env, jtxt);
+
+  eno = ttyname_r((int) jfd, buf, bufsize);
+  if (eno != 0) {
+    goto END;
+  }
+
+  setStringField(env, jtxt, jtxtCls, "value", buf);
+
+END:
+  (*env)->DeleteLocalRef(env, jtxtCls);
+
+  return eno;
+}

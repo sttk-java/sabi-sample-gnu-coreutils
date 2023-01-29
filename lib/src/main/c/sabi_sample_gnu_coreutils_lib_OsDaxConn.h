@@ -23,6 +23,14 @@ JNIEXPORT jint JNICALL Java_sabi_sample_gnu_coreutils_lib_OsDaxConn_getEuid
 JNIEXPORT jint JNICALL Java_sabi_sample_gnu_coreutils_lib_OsDaxConn_getPwdByUid
   (JNIEnv *, jobject, jint, jobject);
 
+/*
+ * Class:     sabi_sample_gnu_coreutils_lib_OsDaxConn
+ * Method:    ttyname
+ * Signature: (ILsabi/sample/gnu/coreutils/lib/TextData;)I
+ */
+JNIEXPORT jint JNICALL Java_sabi_sample_gnu_coreutils_lib_OsDaxConn_ttyname
+  (JNIEnv *, jobject, jint, jobject);
+
 #ifdef __cplusplus
 }
 #endif
